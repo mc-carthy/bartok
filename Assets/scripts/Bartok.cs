@@ -112,6 +112,36 @@ public class Bartok : MonoBehaviour {
         return cd;
     }
 
+    public CardBartok MoveToTarget (CardBartok tCB)
+    {
+        tCB.timeStart = 0;
+        tCB.MoveTo (layout.discardPile.pos + Vector3.back);
+        tCB.state = CBState.toTarget;
+        tCB.faceUp = true;
+        tCB.SetSortingLayerName ("10");
+        tCB.eventualSortLayer = layout.target.layerName;
+
+        if (targetCard != null)
+        {
+            MoveToDiscard (targetCard);
+        }
+
+        targetCard = tCB;
+
+        return tCB;
+    }
+
+    public CardBartok MoveToDiscard (CardBartok tCB)
+    {
+        tCB.state = CBState.discard;
+        discardPile.Add (tCB);
+        tCB.SetSortingLayerName (layout.discardPile.layerName);
+        tCB.SetSortOrder (discardPile.Count * 4);
+        tCB.transform.localPosition = layout.discardPile.pos + Vector3.back / 2;
+
+        return tCB;
+    }
+
     // This Update method is used to test adding cards to players' hands
     private void Update ()
     {

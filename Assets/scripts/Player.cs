@@ -45,6 +45,10 @@ public class Player {
             hand = new List<CardBartok> (cards);
         }
 
+        // Sort the moving card to the top
+        eCB.SetSortingLayerName ("10");
+        eCB.eventualSortLayer = handSlotDef.layerName;
+
         FanHand ();
         return eCB;
     }
@@ -110,7 +114,7 @@ public class Player {
             hand [i].faceUp = (type == PlayerType.human);
 
             // Set the SortOrder of the cards so that they overlap properly
-            hand [i].SetSortOrder (i * 4);
+            hand [i].eventualSortOrder = i * 4;
         }
     }
 
