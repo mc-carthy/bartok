@@ -142,7 +142,7 @@ public class Bartok : MonoBehaviour {
         }
 
         // Call Bartok.DrawFirstTarget () when the hand cards have been drawn
-        Invoke ("DrawFirstTarget", drawTimeStagger * numStartingCards * 4 + 4);
+        Invoke ("DrawFirstTarget", drawTimeStagger * numStartingCards * 4 + 2);
     }
 
     public void DrawFirstTarget ()

@@ -97,7 +97,7 @@ public class CardBartok : Card {
                 float uC = Easing.Ease (u, MOVE_EASING);
 
                 // If u < 0, we shouldn't move yet
-                if (uC < 0)
+                if (u < 0)
                 {
                     // Stay at the initial position
                     transform.localPosition = bezierPts [0];
@@ -115,7 +115,7 @@ public class CardBartok : Card {
                     }
                     if (state == CBState.toTarget)
                     {
-                        state = CBState.target;
+                        state = CBState.toTarget;
                     }
                     if (state == CBState.to)
                     {
