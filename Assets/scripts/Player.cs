@@ -29,6 +29,22 @@ public class Player {
 
         // Add the card to the hand
         hand.Add (eCB);
+
+        // If the player is human, sort the cards by rank using LINQ
+        if (type == PlayerType.human)
+        {
+            // Copy hand to new array
+            CardBartok [] cards = hand.ToArray ();
+
+            // Below is the LINQ call that works on the array of CardBartoks
+            // It's similar to doing a foreach (CardBartok cd in cards)
+            // and sorting them by rank. It then returns a sorted array
+            cards = cards.OrderBy (cd => cd.rank).ToArray ();
+
+            // Convert the array CardBartok [] back to a List<CardBartok>
+            hand = new List<CardBartok> (cards);
+        }
+
         FanHand ();
         return eCB;
     }
