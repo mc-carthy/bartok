@@ -22,6 +22,8 @@ public class Bartok : MonoBehaviour {
 
     // The number of degrees to fan each card in a hand
     public float handFanDegrees = 10f;
+    public int numStartingCards = 7;
+    public float drawTimeStagger = 0.1f;
 
     public bool ___________________;
 
@@ -114,6 +116,33 @@ public class Bartok : MonoBehaviour {
         }
         // Make the 0th player human
         players [0].type = PlayerType.human;
+
+        CardBartok tCB;
+        // Deal initial hand to players
+        for (int i = 0; i < numStartingCards; i++)
+        {
+            for (int j = 0; j < 4; j++)
+            {
+                // Draw a card
+                tCB = Draw ();
+                // Stagger the draw time a bit, calling timeStart overrides 
+                // the default setting of timeStart in CardBartok.MoveTo ()
+                tCB.timeStart = Time.time + drawTimeStagger * (i * 4 + j);
+                // Add the card to the player's hand. The modulus results in a number from 0 to 3
+                players [ (j + 1) % 4].AddCard (tCB);
+            }
+        }
+
+        // Call Bartok.DrawFirstTarget () when the hand cards have been drawn
+        Invoke ("DrawFirstTarget", drawTimeStagger * numStartingCards * 4 + 4);
+    }
+
+    public void DrawFirstTarget ()
+    {
+        // Flip up the target card in the middle
+        CardBartok tCB = MoveToTarget (Draw ());
+        // Set the CardBartok to call CBCallback on this Bartok when it is done
+        tCB.reportFinishTo = this.gameObject;
     }
 
     // The Draw function will pull a single card from the drawPile return it
@@ -127,6 +156,7 @@ public class Bartok : MonoBehaviour {
         return cd;
     }
 
+    // This makes a new card the target
     public CardBartok MoveToTarget (CardBartok tCB)
     {
         tCB.timeStart = 0;
@@ -155,14 +185,6 @@ public class Bartok : MonoBehaviour {
         tCB.transform.localPosition = layout.discardPile.pos + Vector3.back / 2;
 
         return tCB;
-    }
-
-    public void DrawFirstTarget ()
-    {
-        // Flip up the target card in the middle
-        CardBartok tCB = MoveToTarget (Draw ());
-        // Set the CardBartok to call CBCallback on this Bartok when it is done
-        tCB.reportFinishTo = this.gameObject;
     }
 
     // This callback is used by the last card to be dealt at the beginning

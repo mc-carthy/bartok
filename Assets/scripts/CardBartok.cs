@@ -41,6 +41,7 @@ public class CardBartok : Card {
     private void Awake ()
     {
         callbackPlayer = null;
+        Debug.Log (transform.position);
     }
 
     // MoveTo tells the card to interpolate to a new position and rotation
