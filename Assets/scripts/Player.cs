@@ -96,9 +96,14 @@ public class Player {
             pos.z = -0.5f * i;
 
             // Set the localPosition and rotation of the ith card in the hand
-            hand [i].transform.localPosition = pos;
-            hand [i].transform.rotation = rotQ;
-            hand [i].state = CBState.hand;
+            // Tell CardBartok to interpolate
+            hand [i].MoveTo (pos, rotQ);
+            // After the move is complete, CardBartok will set the state to CBState.hand
+            hand [i].state = CBState.toHand;
+
+            // hand [i].transform.localPosition = pos;
+            // hand [i].transform.rotation = rotQ;
+            // hand [i].state = CBState.hand;
 
             // This uses a comparison operator to return true or false bool
             // So if (type == PlayerType.human), hand [i].faceUp is set to true
