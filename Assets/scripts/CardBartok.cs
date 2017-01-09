@@ -41,7 +41,6 @@ public class CardBartok : Card {
     private void Awake ()
     {
         callbackPlayer = null;
-        Debug.Log (transform.position);
     }
 
     // MoveTo tells the card to interpolate to a new position and rotation
@@ -140,6 +139,13 @@ public class CardBartok : Card {
                         // to the same GameObject every subsequent time it moves
                         reportFinishTo = null;
                     }
+                    else if (callbackPlayer != null)
+                    {
+                        // If there's a callbackPlayer
+                        // then call CBCallback directly on the Player
+                        callbackPlayer.CBCallback (this);
+                        callbackPlayer = null;
+                    }
                     // If there is nothing to callback
                     else
                     {
@@ -170,6 +176,15 @@ public class CardBartok : Card {
                 }
                 break;
         }
+    }
+
+    // This allows the card to react to being clicked
+    override public void OnMouseUpAsButton ()
+    {
+        // Call the CardClicked method on the Bartok singleton
+        Bartok.S.CardClicked (this);
+        // Also call the base class (Card.cs) version of this method
+        base.OnMouseUpAsButton ();
     }
 
 }
