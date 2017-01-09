@@ -168,6 +168,7 @@ GameObject:
   - component: {fileID: 827460509}
   - component: {fileID: 827460515}
   - component: {fileID: 827460514}
+  - component: {fileID: 827460516}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -255,12 +256,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   deckXML: {fileID: 4900000, guid: c76312a0fb08948699e1abf935e4a957, type: 3}
-  layoutXML: {fileID: 0}
+  layoutXML: {fileID: 4900000, guid: 91c730fa2064c4a5bb6d969c6f013b28, type: 3}
   layoutCenter: {x: 0, y: 0, z: 0}
   ___________________: 0
   deck: {fileID: 0}
   drawPile: []
   discardPile: []
+  layout: {fileID: 0}
+  layoutAnchor: {fileID: 0}
 --- !u!114 &827460515
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -320,6 +323,57 @@ MonoBehaviour:
   decorators: []
   cardDefs: []
   deckAnchor: {fileID: 0}
+--- !u!114 &827460516
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 827460508}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e8b365dac796a4156b5b751eea04e4a5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  xmlr:
+    xmlText: 
+  multiplier: {x: 0, y: 0}
+  slotDefs: []
+  drawPile:
+    x: 0
+    y: 0
+    faceUp: 0
+    layerName: Default
+    layerID: 0
+    id: 0
+    rot: 0
+    type: slot
+    stagger: {x: 0, y: 0}
+    player: 0
+    pos: {x: 0, y: 0, z: 0}
+  discardPile:
+    x: 0
+    y: 0
+    faceUp: 0
+    layerName: Default
+    layerID: 0
+    id: 0
+    rot: 0
+    type: slot
+    stagger: {x: 0, y: 0}
+    player: 0
+    pos: {x: 0, y: 0, z: 0}
+  target:
+    x: 0
+    y: 0
+    faceUp: 0
+    layerName: Default
+    layerID: 0
+    id: 0
+    rot: 0
+    type: slot
+    stagger: {x: 0, y: 0}
+    player: 0
+    pos: {x: 0, y: 0, z: 0}
 --- !u!1 &1391953154
 GameObject:
   m_ObjectHideFlags: 0
