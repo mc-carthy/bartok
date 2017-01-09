@@ -297,6 +297,7 @@ public class Bartok : MonoBehaviour {
                 // Check to see whether the card is valid
                 if (ValidPlay (tCB))
                 {
+                    CURRENT_PLAYER.RemoveCard (tCB);
                     MoveToTarget (tCB);
                     tCB.callbackPlayer = CURRENT_PLAYER;
                     Utils.tr (Utils.RoundToPlaces (Time.time), "Bartok.CardClicked ()", "Play", tCB.name, targetCard.name + " is target");
