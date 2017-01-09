@@ -106,6 +106,7 @@ public class BartokLayout : MonoBehaviour {
                     // Information for each players hand
                     tSD.player = int.Parse (slotsX [i].att ("player"));
                     tSD.rot = float.Parse (slotsX [i].att ("rot"));
+                    slotDefs.Add (tSD);
                     break;
             }
         }
