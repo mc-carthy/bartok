@@ -36,6 +36,12 @@ public class CardBartok : Card {
 
     // When the card is done moving, it will call reportFinishTo.SendMessage ()
     public GameObject reportFinishTo = null;
+    public Player callbackPlayer = null;
+
+    private void Awake ()
+    {
+        callbackPlayer = null;
+    }
 
     // MoveTo tells the card to interpolate to a new position and rotation
     public void MoveTo (Vector3 ePos, Quaternion eRot)

@@ -99,6 +99,13 @@ public class Player {
             // but which does keep their colliders from overlapping
             pos.z = -0.5f * i;
 
+            // The line below makes sure that the card starts moving immediately
+            // if it's not the initial deal at the beginning of the game
+            if (Bartok.S.phase != TurnPhase.idle)
+            {
+                hand [i].timeStart = 0;
+            }
+
             // Set the localPosition and rotation of the ith card in the hand
             // Tell CardBartok to interpolate
             hand [i].MoveTo (pos, rotQ);
@@ -118,4 +125,51 @@ public class Player {
         }
     }
 
+    // The TakeTurn () method enables the AI of the computer Players
+    public void TakeTurn ()
+    {
+        Utils.tr (Utils.RoundToPlaces (Time.time), "Player.TakeTurn ()");
+
+        // Don't need to do anything if the player is a human
+        if (type == PlayerType.human)
+        {
+            return;
+        }
+
+        Bartok.S.phase = TurnPhase.waiting;
+
+        CardBartok cb;
+
+        // If this is an AI player, need to make a choice about what to play
+        // Find valid plays
+        List<CardBartok> validCards = new List<CardBartok> ();
+        foreach (CardBartok tCB in hand)
+        {
+            if (Bartok.S.ValidPlay (tCB))
+            {
+                validCards.Add (tCB);
+            }
+        }
+        // If there are no valid cards
+        if (validCards.Count == 0)
+        {
+            // Then draw a card
+            cb = AddCard (Bartok.S.Draw ());
+            cb.callbackPlayer = this;
+            return;
+        }
+
+        // Otherwise, if there is a card or more to play, pick one at random
+        cb = validCards [Random.Range (0, validCards.Count)];
+        RemoveCard (cb);
+        Bartok.S.MoveToTarget (cb);
+        cb.callbackPlayer = this;
+    }
+
+    public void CBCallback (CardBartok tCB)
+    {
+        Utils.tr (Utils.RoundToPlaces (Time.time), "Player.CBCallback ()", tCB.name, "Player " + playerNum.ToString ());
+        // The card is done moving, so pass the turn
+        Bartok.S.PassTurn ();
+    }
 }
